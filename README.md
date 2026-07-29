@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="hero-editor.png" alt="The Overcaption editor: waveform timeline, subtitle list and styled video preview" width="720">
-</p>
-
 # Overcaption
 
 **The free offline subtitle studio for macOS and Windows.**
@@ -12,6 +8,10 @@ Overcaption transcribes video on your machine with on-device speech recognition,
   <a href="https://api.overcaption.com/download?platform=mac&src=github"><b>Download for macOS</b></a> (Apple Silicon) ·
   <a href="https://api.overcaption.com/download?platform=win&src=github"><b>Download for Windows</b></a> (10/11) ·
   <a href="https://overcaption.com/?src=github">Website</a>
+</p>
+
+<p align="center">
+  <img src="hero-editor.png" alt="The Overcaption editor: waveform timeline, subtitle list and styled video preview" width="720">
 </p>
 
 ## About this repository
