@@ -9,8 +9,8 @@ Overcaption transcribes video on your machine with on-device speech recognition,
   <a href="https://api.overcaption.com/download?platform=win&src=github"><b>Download for Windows</b></a> (10/11) ·
   <a href="https://overcaption.com/?src=github">Website</a>
 </p>
-
-<p align="center">
+<br/>
+<p align="left">
   <img src="hero-editor.png" alt="The Overcaption editor: waveform timeline, subtitle list and styled video preview" width="720">
 </p>
 
