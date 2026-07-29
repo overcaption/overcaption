@@ -1,0 +1,47 @@
+# Mirrors the live installers from assets.overcaption.com (R2) onto a GitHub
+# release, so nothing large ever travels through a home connection. Run it
+# after the publish pipeline has updated releases/latest/ and the draft
+# release exists here. The manifest version must match the tag or it aborts.
+name: mirror-release-assets
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach assets to (e.g. v0.3.2)"
+        required: true
+permissions:
+  contents: write
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download from R2 and verify against the manifest
+        run: |
+          set -euo pipefail
+          curl -fsS https://assets.overcaption.com/releases/latest.json -o latest.json
+          ver=$(jq -r .version latest.json)
+          if [ "v$ver" != "${{ inputs.tag }}" ]; then
+            echo "::error::manifest says v$ver but tag is ${{ inputs.tag }} - refusing to mirror mismatched assets"
+            exit 1
+          fi
+          curl -fL --retry 3 -o "Overcaption-$ver-mac-arm64.dmg" \
+            https://assets.overcaption.com/releases/latest/Overcaption-mac-arm64.dmg
+          curl -fL --retry 3 -o "Overcaption-$ver-win-x64.exe" \
+            https://assets.overcaption.com/releases/latest/Overcaption-win-x64.exe
+          for f in "Overcaption-$ver-mac-arm64.dmg:mac" "Overcaption-$ver-win-x64.exe:win"; do
+            file="${f%%:*}"; key="${f##*:}"
+            want=$(jq -r ".$key.bytes" latest.json)
+            got=$(stat -c%s "$file")
+            if [ "$want" != "$got" ]; then
+              echo "::error::$file is $got bytes, manifest says $want"
+              exit 1
+            fi
+          done
+          echo "SHA-256 of mirrored files (compare with release notes):"
+          sha256sum Overcaption-"$ver"-*
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "${{ inputs.tag }}" Overcaption-*.dmg Overcaption-*.exe \
+            --repo "${{ github.repository }}" --clobber
