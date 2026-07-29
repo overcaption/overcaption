@@ -1,0 +1,42 @@
+name: Bug report
+description: Something is broken or produces wrong output
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time. The more specific the report, the faster the fix.
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Shown in the About dialog.
+      placeholder: "0.3.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS (Apple Silicon)
+        - Windows 10
+        - Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: media
+    attributes:
+      label: About the video/audio file (if relevant)
+      description: "Format, length, and what the audio is like: music, accents, several speakers, background noise. Wrong transcription or timing is often specific to the audio."
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, exported files, error messages.

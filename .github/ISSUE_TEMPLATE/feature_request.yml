@@ -1,0 +1,21 @@
+name: Feature request
+description: Something Overcaption should do but does not
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to get done? Describing the task helps more than describing a solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: How do you imagine it working? (Optional. "This is annoying" is already useful.)
+  - type: input
+    id: workaround
+    attributes:
+      label: Current workaround
+      description: What do you do today instead?
